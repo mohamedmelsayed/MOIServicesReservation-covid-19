@@ -1,0 +1,26 @@
+<mat-card>
+    <h2>{{location.name}}</h2>
+    <div *ngFor="let serv of statistics">
+    <table>
+            <tr>
+                    <th>الخدمة</th>
+                    <th>{{serv.servicename}}</th><br>
+        
+                </tr>
+                <tr>
+                        <th>محجوز</th>
+                        <th>{{serv.count}}</th><br>
+        
+                </tr>
+                <tr>
+                        <th>الحد الأقصى</th>
+                        <th>{{serv.maxapps}}</th><br>
+        
+                </tr>
+    </table>
+       
+
+    </div>
+    <button *ngFor="let serv of services" (click)="routeto(serv)"> حجز خدمة {{serv.name }} </button>
+
+</mat-card>

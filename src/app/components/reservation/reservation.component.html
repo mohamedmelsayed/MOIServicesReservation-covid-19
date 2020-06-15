@@ -1,0 +1,47 @@
+<mat-card>
+  <h1>حجز الخدمات - {{ reserve.locationname }}</h1>
+  <h2>خدمة {{ reserve.name }}</h2>
+
+  <table>
+    <tr>
+      <th>موعد الحجز</th>
+      <td>
+            <mat-form-field>
+                    <input
+                    matInput
+                    [matDatepicker]="date2"
+                    [(ngModel)]="request.dateofapp"
+                  />
+                  <mat-datepicker-toggle matSuffix [for]="date2"></mat-datepicker-toggle>
+                  <mat-datepicker #date2></mat-datepicker>
+            </mat-form-field>
+           
+      </td>
+    </tr>
+    <tr>
+      <th>إسم المواطن رباعي</th>
+      <td><input [(ngModel)]="request.fullname" style="width: 400px" /></td>
+    </tr>
+    <tr>
+      <th>رقم الهاتف</th>
+      <td>
+        <input
+          [(ngModel)]="request.phonenumber"
+          type="number"
+          onkeypress="return event.charCode >= 48"
+        />249+
+      </td>
+    </tr>
+    <tr>
+      <th>الرقم الوطني</th>
+      <td>
+        <input
+          [(ngModel)]="request.nationalnumber"
+          type="number"
+          onkeypress="return event.charCode >= 48"
+        />
+      </td>
+    </tr>
+    <button (click)="save()">تقديم</button>
+  </table>
+</mat-card>
