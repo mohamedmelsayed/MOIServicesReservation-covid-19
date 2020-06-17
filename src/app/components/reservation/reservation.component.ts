@@ -14,6 +14,7 @@ export class ReservationComponent implements OnInit {
   public reserve: any={};
   @ViewChild("date",{static:false})
   public date2: any;
+  public statistics:any[]=[];
   
   public request: any={};
   constructor(private _hs: HttpService, private _ss: ShareService, private _ar: ActivatedRoute,
@@ -61,5 +62,24 @@ export class ReservationComponent implements OnInit {
     
   // })
     
+  }
+
+  showReservations(){
+    console.log("hehe");
+
+    if(this.request.dateofapp==undefined){
+      return;
+    }
+    
+    this._hs.DoOperation({method:'groupservices',where:'servicesid,eq,'+this.reserve.id+'^dateofapp,eq,'+formatDate(this.request.dateofapp,"yyyy-MM-dd","en")}).subscribe((res:any)=>{
+      if(res.length>0){
+        this.statistics=res;
+        console.log(this.statistics);
+        
+      }
+      else{
+        this.statistics=[];
+      }
+    })
   }
 }

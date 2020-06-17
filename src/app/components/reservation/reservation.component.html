@@ -6,8 +6,9 @@
     <tr>
       <th>موعد الحجز</th>
       <td>
-            <mat-form-field>
+            <mat-form-field >
                     <input
+                    
                     matInput
                     [matDatepicker]="date2"
                     [(ngModel)]="request.dateofapp"
@@ -16,6 +17,9 @@
                   <mat-datepicker #date2></mat-datepicker>
             </mat-form-field>
            
+      </td>
+      <td>
+        <button (blur)="showReservations()">بحث</button>
       </td>
     </tr>
     <tr>
@@ -44,4 +48,30 @@
     </tr>
     <button (click)="save()">تقديم</button>
   </table>
+</mat-card>
+<mat-card *ngIf="statistics.length>0">
+  <h2>{{reserve.locationname}}</h2>
+  <div *ngFor="let serv of statistics">
+  <table>
+          <tr>
+                  <th>الخدمة</th>
+                  <th>{{serv.servicename}}</th><br>
+      
+              </tr>
+              <tr>
+                      <th>محجوز</th>
+                      <th>{{serv.count}}</th><br>
+      
+              </tr>
+              <tr>
+                      <th>الحد الأقصى</th>
+                      <th>{{serv.maxapps}}</th><br>
+      
+              </tr>
+  </table>
+     
+
+  </div>
+  
+
 </mat-card>
