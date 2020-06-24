@@ -6,26 +6,30 @@
     <tr>
       <th>موعد الحجز</th>
       <td>
-            <mat-form-field >
-                    <input
-                    
-                    matInput
-                    [matDatepicker]="date2"
-                    [(ngModel)]="request.dateofapp"
-                  />
-                  <mat-datepicker-toggle matSuffix [for]="date2"></mat-datepicker-toggle>
-                  <mat-datepicker #date2></mat-datepicker>
-            </mat-form-field>
-           
+        <mat-form-field (blur)="showReservations()">
+          <input
+            matInput
+            [matDatepicker]="date2"
+            [(ngModel)]="request.dateofapp"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="date2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #date2></mat-datepicker>
+        </mat-form-field>
       </td>
+    </tr>
+    <tr>
       <td>
-        <button (blur)="showReservations()">بحث</button>
+        <button (click)="showReservations()">بحث</button>
       </td>
     </tr>
     <tr>
       <th>إسم المواطن رباعي</th>
       <td><input [(ngModel)]="request.fullname" style="width: 400px" /></td>
     </tr>
+
     <tr>
       <th>رقم الهاتف</th>
       <td>
@@ -36,7 +40,8 @@
         />249+
       </td>
     </tr>
-    <tr>
+
+    <!-- <tr>
       <th>الرقم الوطني</th>
       <td>
         <input
@@ -45,33 +50,35 @@
           onkeypress="return event.charCode >= 48"
         />
       </td>
-    </tr>
-    <button (click)="save()">تقديم</button>
+    </tr> -->
   </table>
+
+  <button (click)="save()">تقديم</button>
+  <button (click)="home()">رجوع</button>
+  <!-- <qrcode [qrdata]="value" [width]="256" [errorCorrectionLevel]="'M'" [elementType]="'img'"
+   *ngIf="value!=null"></qrcode> -->
+  <ngx-qrcode qrc-element-type="img" qrc-value="value" *ngIf="value != null">
+  </ngx-qrcode>
 </mat-card>
-<mat-card *ngIf="statistics.length>0">
-  <h2>{{reserve.locationname}}</h2>
+<mat-card *ngIf="statistics.length > 0">
+  <h2>{{ reserve.locationname }}</h2>
   <div *ngFor="let serv of statistics">
-  <table>
-          <tr>
-                  <th>الخدمة</th>
-                  <th>{{serv.servicename}}</th><br>
-      
-              </tr>
-              <tr>
-                      <th>محجوز</th>
-                      <th>{{serv.count}}</th><br>
-      
-              </tr>
-              <tr>
-                      <th>الحد الأقصى</th>
-                      <th>{{serv.maxapps}}</th><br>
-      
-              </tr>
-  </table>
-     
-
+    <table>
+      <tr>
+        <th>الخدمة</th>
+        <th>{{ serv.servicename }}</th>
+        <br />
+      </tr>
+      <tr>
+        <th>محجوز</th>
+        <th>{{ serv.count }}</th>
+        <br />
+      </tr>
+      <tr>
+        <th>الحد الأقصى</th>
+        <th>{{ serv.maxapps }}</th>
+        <br />
+      </tr>
+    </table>
   </div>
-  
-
 </mat-card>

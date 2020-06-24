@@ -1,0 +1,51 @@
+<mat-card>
+  <h1>التحقق من حجز الخدمات - {{ reserve.locationname }}</h1>
+  <h2>خدمة {{ reserve.name }}</h2>
+
+  <table>
+    <tr>
+      <th>موعد الحجز</th>
+      <td>
+        <mat-form-field>
+          <input
+            matInput
+            [matDatepicker]="date2"
+            [(ngModel)]="request.dateofapp"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="date2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #date2></mat-datepicker>
+        </mat-form-field>
+      </td>
+    </tr>
+
+    <tr>
+      <th>رقم الموبائل</th>
+
+      <td>
+        <input
+          [(ngModel)]="request.phonenumber"
+          type="number"
+          onkeypress="return event.charCode >= 48"
+        />249+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button (click)="search()">بحث</button>
+      </td>
+    </tr>
+  </table>
+</mat-card>
+
+<mat-card *ngIf="result != null">
+  <h3>بيانات الحجز</h3>
+  <h3>اسم طالب الخدمة هو {{ result.fullname }}</h3>
+  <h3>تاريخ حجز الخدمة هو {{ result.dateofapp }}</h3>
+</mat-card>
+
+<mat-card *ngIf="result == null">
+  <h3>لا يوجد الحجز</h3>
+</mat-card>

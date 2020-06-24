@@ -15,7 +15,8 @@ export class ReservationComponent implements OnInit {
   @ViewChild("date",{static:false})
   public date2: any;
   public statistics:any[]=[];
-  
+  elementType : 'url' | 'canvas' | 'img' = 'url';
+  value : string ;
   public request: any={};
   constructor(private _hs: HttpService, private _ss: ShareService, private _ar: ActivatedRoute,
     private _router: Router) { 
@@ -33,23 +34,40 @@ export class ReservationComponent implements OnInit {
         
        let count=res[0].count;
        let maxapps=res[0].maxapps;
-       if(count<maxapps){
+       if(count<maxapps||count==null){
          this._hs.Post('orders',{fullname:this.request.fullname,
           locationsid:this.reserve.locationsid,dateofapp:formatDate(this.request.dateofapp,"yyyy-MM-dd","en"),
         phonenumber:this.request.phonenumber,nationalnumber:this.request.nationalnumber,servicesid:this.reserve.id}).subscribe((res:any)=>{
            console.log(res);
-           
-         })
-       }
+           if(res>0){
+            console.log(res);
+
+             this.value=res[0]+this.request.phonenumber;
+           }
+           else{
+            alert('لا يمكن عمل الحجز مرتين بنفس الرقم');
+          }
+         })}
+
+        
       }
-      else{
-        this._hs.Post('orders',{fullname:this.request.fullname,
-          locationsid:this.reserve.locationsid,dateofapp:formatDate(this.request.dateofapp,"yyyy-MM-dd","en"),
-        phonenumber:this.request.phonenumber,nationalnumber:this.request.nationalnumber,servicesid:this.reserve.id}).subscribe((res:any)=>{
-           console.log(res);
+      else {
+        // this._hs.Post('orders',{fullname:this.request.fullname,
+        //   locationsid:this.reserve.locationsid,dateofapp:formatDate(this.request.dateofapp,"yyyy-MM-dd","en"),
+        // phonenumber:this.request.phonenumber,nationalnumber:this.request.nationalnumber,servicesid:this.reserve.id}).subscribe((res:any)=>{
+        //      this.value=res[0]+this.request.phonenumber;
+        //      console.log(res);
+        //    if(res>0){
+        //     console.log(res);
+
+        //      this.value=res[0]+this.request.phonenumber;
+        //    }
            
-         })
+        //  })
+        alert('تم تجاوز الحد الأقصى');
       }
+    
+  
       
     })
 
@@ -63,7 +81,10 @@ export class ReservationComponent implements OnInit {
   // })
     
   }
+home(){
+  this._router.navigate([`/`]);
 
+}
   showReservations(){
     console.log("hehe");
 

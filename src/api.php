@@ -188,17 +188,17 @@ class MySQL extends ConnectionTools
 
     public function doOperation($operation, $transop)
     {
-        $opdone=false;
+        $opdone = false;
         switch ($operation['method']) {
             case 'langs':
                 $sql = "SELECT * from langs";
                 $this->doQuery($sql);
-                $opdone=true;
+                $opdone = true;
                 break;
             case 'langtypes':
                 $sql = "SELECT * from langtypes";
                 $this->doQuery($sql);
-                $opdone=true;
+                $opdone = true;
                 break;
             case 'login':
                 $sql = "SELECT * from `" . $operation["table"] . "`" . $this->getWhere($operation);
@@ -210,20 +210,19 @@ class MySQL extends ConnectionTools
                     if ($this->auth) {
                         $tokenlifetime = date("Y-m-d H:i:s", time() + $operation["tokenlifetime"]);
                         $token = bin2hex(random_bytes(64));
-                        $query = "insert into tokens (token,tokenlifetime) values ('".$row['username']."$token','$tokenlifetime')";
+                        $query = "insert into tokens (token,tokenlifetime) values ('" . $row['username'] . "$token','$tokenlifetime')";
                         if ($this->conn->query($query) === true) {
-                            $row["token"] = $row['username'].$token;
+                            $row["token"] = $row['username'] . $token;
                             $row["tokenlifetime"] = $tokenlifetime;
                         }
                     }
                     array_push($this->res, $row);
-                    
                 }
-                $opdone=true;
+                $opdone = true;
                 break;
             case 'logout':
                 if ($this->auth) {
-                    $username=$operation["username"];
+                    $username = $operation["username"];
                     if ($this->conn->query("delete from tokens where token like '$username%'") === true) {
                         $resobj = json_encode(array('status' => true, 'message' => 'Successfully logout out'), JSON_FORCE_OBJECT);
                     } else {
@@ -232,20 +231,20 @@ class MySQL extends ConnectionTools
                     array_push($this->res, json_decode($resobj));
                     return;
                 }
-                $opdone=true;
+                $opdone = true;
                 break;
             default:
 
                 break;
         }
-        if ($opdone){
+        if ($opdone) {
             return;
-        }else{
+        } else {
             if (!$this->doAuth()) {
                 return;
             }
         }
-      
+
         switch ($operation['method']) {
             case 'get':
                 $fields = isset($operation["fields"]) && !empty($operation["fields"]) ? $operation["fields"] : "*";
@@ -254,7 +253,6 @@ class MySQL extends ConnectionTools
                 $sql = "SELECT $fields from `" . $operation['table'] . "`";
                 $where = $this->getWhere($operation);
                 $sql = $sql . $where . $order . $limit;
-                // die($sql);
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -379,7 +377,7 @@ class MySQL extends ConnectionTools
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
-       return $result;
+        return $result;
     }
     private function getQueryArray($sql)
     {
@@ -432,33 +430,46 @@ class DbFactory
             case 'MySQL':
                 new MySQL($hostname, $username, $password, $database, $charset, $extraoperations, $auth);
                 break;
+
+           
             default:
                 break;
         }
     }
 }
-$api=null;
+$api = null;
 if ($_SERVER['HTTP_HOST'] === 'localhost') {
+ 
     $api = new DbFactory(array(
         'dbengine' => 'MySQL',
-        'hostname' => '79.170.40.244',
-        'username' => 'cl23-kushite',
-        'password' => 'FBFt.TE63',
-        'database' => 'cl23-kushite',
+        'hostname' => '79.170.44.126',
+        'username' => 'cl29-kushite',
+        'password' => 'nTsB!X4Bb',
+        'database' => 'cl29-kushite',
         'charset' => 'utf8mb4',
         'extraoperations' => 'apiExtraOperations.php',
         'auth' => false,
     ));
 } else {
+    // $api = new DbFactory(array(
+    //     'dbengine' => 'MySQL',
+    //     'hostname' => '79.170.40.244',
+    //     'username' => 'cl23-kushite',
+    //     'password' => 'FBFt.TE63',
+    //     'database' => 'cl23-kushite',
+    //     'charset' => 'utf8mb4',
+    //     'extraoperations' => 'apiExtraOperations.php',
+    //     'auth' => true,
+    // ));
     $api = new DbFactory(array(
         'dbengine' => 'MySQL',
-        'hostname' => '79.170.40.244',
-        'username' => 'cl23-kushite',
-        'password' => 'FBFt.TE63',
-        'database' => 'cl23-kushite',
+        'hostname' => '79.170.44.126',
+        'username' => 'cl29-kushite',
+        'password' => 'nTsB!X4Bb',
+        'database' => 'cl29-kushite',
         'charset' => 'utf8mb4',
         'extraoperations' => 'apiExtraOperations.php',
-        'auth' => true,
+        'auth' => false,
     ));
 }
 $api->execute();

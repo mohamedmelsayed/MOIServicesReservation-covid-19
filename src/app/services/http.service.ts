@@ -18,7 +18,9 @@ export class HttpService {
   // private localdomain = "http://localhost/salesdove/";
   private localdomain = "http://localhost/moi/";
   // private localdomain = "http://koby.flowbytes.com/";
-  private webdomain = "";
+  private webdomain = "http://62.12.99.11/reservations/";
+  // private webdomain = "http://79.170.44.126/platinum-sd.com/kushite/";
+
 
   constructor(public _http: HttpClient) {
     if (environment.production) {

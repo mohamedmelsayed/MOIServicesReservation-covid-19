@@ -50,5 +50,10 @@ export class ServicesitesComponent implements OnInit {
     let obj=JSON.stringify(Input);
     this._router.navigate([`/reservation/${obj}`]);
   }
+  verify(Input){
+    Input.locationname=this.location.name;
+    let obj=JSON.stringify(Input);
+    this._router.navigate([`/verify/${obj}`]);
+  }
 
 }

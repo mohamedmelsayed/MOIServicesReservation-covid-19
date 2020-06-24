@@ -1,5 +1,5 @@
 <mat-card>
-    <h2>{{location.name}}</h2>
+    <h1>{{location.name}}</h1>
     <div *ngFor="let serv of statistics">
     <table>
             <tr>
@@ -21,6 +21,17 @@
        
 
     </div>
-    <button *ngFor="let serv of services" (click)="routeto(serv)"> حجز خدمة {{serv.name }} </button>
+    <div>
+            <h2>الحجز</h2>
+        <button *ngFor="let serv of services" (click)="routeto(serv)"> حجز خدمة {{serv.name }} </button>
+
+    </div>
+    <div>
+                <h2>الإستعلام</h2>
+
+        <button *ngFor="let serv of services" (click)="verify(serv)">  تحقق من الحجز {{serv.name }} </button>
+
+    </div>
+
 
 </mat-card>

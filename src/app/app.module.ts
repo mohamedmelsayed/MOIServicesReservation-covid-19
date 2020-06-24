@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,13 +12,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { LocationsComponent } from './components/locations/locations.component';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { FormsModule } from '@angular/forms';
+import { VerifyComponent } from './components/verify/verify.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServicesitesComponent,
     LocationsComponent,
-    ReservationComponent
+    ReservationComponent,
+    VerifyComponent
   ],
   imports: [
     MaterialModule,
@@ -25,7 +28,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    NgxQRCodeModule,
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]
