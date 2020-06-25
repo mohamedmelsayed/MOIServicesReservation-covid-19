@@ -1,1 +1,6 @@
-<app-servicesites *ngFor="let item of locations" [location]='item' ></app-servicesites>
+<mat-card>
+    <h1>الرجاء إختيار  مكان تلقي القدمة</h1>
+
+    <button *ngFor="let item of locations" (click)="goto(item)">{{item.name}}</button>
+</mat-card>
+<!-- <app-servicesites *ngFor="let item of locations" [location]='item' ></app-servicesites> -->

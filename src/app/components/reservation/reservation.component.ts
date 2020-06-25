@@ -34,6 +34,8 @@ export class ReservationComponent implements OnInit {
         
        let count=res[0].count;
        let maxapps=res[0].maxapps;
+       console.log(count);
+       
        if(count<maxapps||count==null){
          this._hs.Post('orders',{fullname:this.request.fullname,
           locationsid:this.reserve.locationsid,dateofapp:formatDate(this.request.dateofapp,"yyyy-MM-dd","en"),
@@ -48,23 +50,26 @@ export class ReservationComponent implements OnInit {
             alert('لا يمكن عمل الحجز مرتين بنفس الرقم');
           }
          })}
+         else{
+          alert('تم تجاوز الحد الأقصى');
+
+         }
 
         
       }
       else {
-        // this._hs.Post('orders',{fullname:this.request.fullname,
-        //   locationsid:this.reserve.locationsid,dateofapp:formatDate(this.request.dateofapp,"yyyy-MM-dd","en"),
-        // phonenumber:this.request.phonenumber,nationalnumber:this.request.nationalnumber,servicesid:this.reserve.id}).subscribe((res:any)=>{
-        //      this.value=res[0]+this.request.phonenumber;
-        //      console.log(res);
-        //    if(res>0){
-        //     console.log(res);
+        this._hs.Post('orders',{fullname:this.request.fullname,
+          locationsid:this.reserve.locationsid,dateofapp:formatDate(this.request.dateofapp,"yyyy-MM-dd","en"),
+        phonenumber:this.request.phonenumber,nationalnumber:this.request.nationalnumber,servicesid:this.reserve.id}).subscribe((res:any)=>{
+             this.value=res[0]+this.request.phonenumber;
+             console.log(res);
+           if(res>0){
+            console.log(res);
 
-        //      this.value=res[0]+this.request.phonenumber;
-        //    }
+             this.value=res[0]+this.request.phonenumber;
+           }
            
-        //  })
-        alert('تم تجاوز الحد الأقصى');
+         })
       }
     
   

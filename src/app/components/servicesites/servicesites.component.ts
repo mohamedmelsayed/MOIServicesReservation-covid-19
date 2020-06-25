@@ -16,7 +16,7 @@ export class ServicesitesComponent implements OnInit {
   services: any[]=[];
   constructor(private _hs: HttpService, private _ss: ShareService, private _ar: ActivatedRoute,
     private _router: Router) { 
-      this._ar.params.subscribe(params => (this.location = Number(params["location"])));
+      this._ar.params.subscribe(params => (this.location = JSON.parse(params["location"])));
 
     }
 

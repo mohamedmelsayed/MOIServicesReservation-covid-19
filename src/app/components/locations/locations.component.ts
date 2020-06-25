@@ -29,4 +29,9 @@ public locations:any[]=[];
 
   }
 
+  goto(Input){
+    let obj=JSON.stringify(Input);
+    this._router.navigate([`/services/${obj}`]);
+  }
+
 }
